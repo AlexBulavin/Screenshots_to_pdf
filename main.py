@@ -1,7 +1,6 @@
 __author__ = 'Alex Bulavin'
 import os
 import time
-
 from reportlab.platypus import Image, PageBreak
 from PIL import Image as PILImage
 from tqdm import tqdm
@@ -10,7 +9,6 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
-from tqdm.notebook import tqdm_notebook
 
 # Путь к папке со скриншотами. Указать свой.
 screenshots_folder = '/Users/alex/Documents/Python_projects/screenshots_to_pdf/screenshots'
