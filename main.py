@@ -9,8 +9,6 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.fonts import addMapping
-
 
 # Путь к папке со скриншотами. Указать свой.
 screenshots_folder = '/Users/alex/Documents/Python_projects/screenshots_to_pdf/screenshots'
@@ -44,9 +42,6 @@ font_name = 'Arial'
 
 # Устанавливаем шрифт с поддержкой кириллицы
 pdfmetrics.registerFont(TTFont(font_name, font_path))
-
-# Добавляем маппинг шрифта для кириллических символов
-addMapping('Arial', 0, 0, 'Arial')
 
 # Стиль для надписи с именем файла
 styles = getSampleStyleSheet()
