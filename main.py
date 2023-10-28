@@ -1,5 +1,6 @@
 __author__ = 'Alex Bulavin'
 import os
+import time
 
 from reportlab.platypus import Image, PageBreak
 from PIL import Image as PILImage
@@ -9,6 +10,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
+from tqdm.notebook import tqdm_notebook
 
 # Путь к папке со скриншотами. Указать свой.
 screenshots_folder = '/Users/alex/Documents/Python_projects/screenshots_to_pdf/screenshots'
@@ -50,8 +52,23 @@ filename_style = styles['Normal']
 filename_style.fontName = font_name
 filename_style.wordWrap = 'UTF8'
 
+
+
 # Обработка каждого скриншота и добавление его в документ
-for screenshot in tqdm(screenshots, desc='Creating PDF'):
+#for screenshot in tqdm(screenshots, colour='\033[92m', desc='Creating PDF'): #Здесь отрисовка прогрессбара
+# Задаём цвета для прогресс-бара здесь.
+colors = [35, 34, 36, 32, 31, 37]  # От синего (21) к красному (26)
+color_iterator = 0
+color = f'\033[{colors[color_iterator]}m'
+
+# Используйте tqdm для отображения прогресс-бара с изменением цвета
+for screenshot in tqdm(screenshots, desc='Creating PDF',
+    bar_format="%s{l_bar}%s{bar}%s{r_bar}" %
+               ('\033[92m', color, '\033[92m')):
+    color_iterator += 1
+    if color_iterator == 6:
+        color_iterator -= 6
+    color = f'\033[{colors[color_iterator]}m'
     # Путь к текущему скриншоту
     screenshot_path = os.path.join(screenshots_folder, screenshot)
 
@@ -66,11 +83,12 @@ for screenshot in tqdm(screenshots, desc='Creating PDF'):
 
     # Создание надписи с именем файла
     filename_paragraph = Paragraph(screenshot, filename_style, encoding='utf-8')
-    print(filename_paragraph)
+    #print(filename_paragraph) #Лог для проверки имени файла при его записи в pdf
     # Добавление элементов в список элементов документа
     elements.append(filename_paragraph)
     elements.append(reportlab_image)
     elements.append(PageBreak())  # Переход на следующую страницу
+    time.sleep(2)  # Просто для демонстрации
 
 # Сборка документа и запись в файл
 doc.build(elements)
