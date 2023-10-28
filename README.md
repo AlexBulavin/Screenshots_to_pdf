@@ -10,3 +10,5 @@ font_name = 'Arial'
 Insert into folder Fonts/Arial/ any font you need and then set the path and new font name like this:
 font_path = 'Fonts/Nwe_font/new_font.ttf'
 font_name = 'NewFont'
+
+## New screenshot just for illustration
